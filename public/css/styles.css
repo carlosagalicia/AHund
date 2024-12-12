@@ -1,0 +1,1725 @@
+/* Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+
+/* General variables */
+:root {
+  --dark-primary-color: #006ec7;
+  --light-primary-color: #00a7fd;
+  --accent-color: #67daee;
+  --text-icons-color: #ffffff;
+  --divider-color: #f0f0f0;
+  --divider-border-color: #e2e2e2;
+  --green-light: rgb(21, 201, 21);
+  --yellow-light: rgb(244, 225, 9);
+  --red-light: rgb(244, 106, 85);
+}
+
+/* General settings */
+* {
+  box-sizing: border-box;
+  font-family: "Rubik", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  position: relative;
+}
+
+body {
+  background-color: var(--divider-color);
+}
+
+main {
+  margin-left: 10rem;
+  margin-top: 3.313rem;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+nav button {
+  border: none;
+  background-color: transparent;
+  color: var(--text-icons-color);
+  cursor: pointer;
+}
+
+input {
+  outline: none;
+  width: 100%;
+  padding: 1rem;
+  border: 0.225rem solid var(--divider-border-color);
+  border-radius: 0.25rem;
+  transition: all ease 0.5s;
+}
+
+input:focus {
+  border-color: var(--dark-primary-color);
+}
+
+textarea {
+  outline: none;
+  width: 100%;
+  height: 10rem;
+  max-height: 30rem;
+  padding: 1rem;
+  border: 0.225rem solid var(--divider-border-color);
+  border-radius: 0.25rem;
+  transition: all ease 0.5s;
+  resize: none;
+}
+
+.delete {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--red-light);
+  font-size: 1.5rem;
+}
+
+.edit {
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  color: var(--dark-primary-color);
+}
+
+.favorite {
+  background: transparent;
+  font-size: 1.5rem;
+  border: none;
+  cursor: pointer;
+  color: var(--yellow-light);
+}
+
+.add-risk {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.add-risk a {
+  text-decoration: none;
+  color: var(--light-primary-color);
+}
+
+.circle {
+  width: 1rem;
+  height: 1rem;
+  min-width: 1rem;
+  min-height: 1rem;
+  border-radius: 100%;
+  flex-shrink: 0;
+}
+
+.circle.green {
+  background-color: var(--green-light);
+}
+
+.circle.yellow {
+  background-color: var(--yellow-light);
+}
+
+.circle.red {
+  background-color: var(--red-light);
+}
+
+.circle.blue {
+  background-color: var(--dark-primary-color);
+}
+
+/* Sidebar Styles */
+
+.sidebar {
+  width: 10rem;
+  height: 100%;
+  background-color: var(--text-icons-color);
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: width 0.2s ease;
+  z-index: 1100;
+}
+
+.sidebar-link {
+  display: flex;
+  justify-content: center;
+  white-space: nowrap;
+  gap: 1rem;
+}
+
+.sidebar .a-text {
+  display: flex;
+  opacity: 1;
+  transition: opacity 1s ease;
+}
+
+.sidebar ul {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  gap: 1rem;
+}
+
+.sidebar li {
+  display: flex;
+}
+
+.sidebar a {
+  color: var(--dark-primary-color);
+  text-decoration: none;
+}
+
+.sidebar a:hover {
+  color: var(--light-primary-color);
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.brand .nav-logo {
+  width: 7rem;
+  object-fit: cover;
+}
+
+/* Topbar Styles */
+
+.topbar {
+  background-image: linear-gradient(
+    to right,
+    var(--dark-primary-color) 60%,
+    var(--light-primary-color) 100%
+  );
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 0.875rem;
+  justify-content: space-between;
+  position: fixed;
+  align-items: center;
+  padding-left: 12rem;
+  padding-right: 2rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  transition: padding-left 0.2s ease;
+  z-index: 1000;
+  top: 0;
+  width: 100%;
+}
+
+.nav-left {
+  display: flex;
+  gap: 4rem;
+}
+
+.nav-left .nav-left-items {
+  display: flex;
+  list-style: none;
+  flex-wrap: wrap;
+  gap: 3rem;
+}
+
+.nav-left li {
+  border-bottom: 2px transparent;
+  transition: border-bottom 0.2s ease;
+}
+
+.nav-left li:hover {
+  border-bottom: 2px var(--divider-color) solid;
+}
+
+.nav-right .show-collapsed-nav {
+  display: none;
+}
+
+.user-options {
+  opacity: 0;
+  pointer-events: none;
+  flex-direction: column;
+  position: absolute;
+  background-color: var(--dark-primary-color);
+  margin-top: 0.65rem;
+  padding: 1rem;
+  right: 0;
+  top: 0.5rem; /* Ajuste para que esté debajo del icono del usuario */
+  transition: opacity 0.2s ease-out;
+}
+
+.user-options a {
+  width: auto;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.user-container {
+  position: relative;
+}
+
+.user:hover ~ .user-options,
+.user-options:hover {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.topbar a {
+  color: var(--text-icons-color);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.topbar a:hover {
+  color: var(--divider-color);
+  text-decoration: none;
+}
+
+.nav-collapsed {
+  background-color: var(--light-primary-color);
+  position: fixed;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 2rem;
+  z-index: 1200;
+  display: none;
+}
+
+.nav-collapsed ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem 0;
+  text-align: right;
+}
+
+.nav-collapsed a {
+  text-decoration: none;
+  color: var(--text-icons-color);
+}
+
+.nav-collapsed.collapse {
+  display: flex;
+}
+
+.test {
+  width: 100%;
+  height: 3rem;
+  background-color: rebeccapurple;
+}
+
+/* Project Settings */
+
+.project-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(calc(33% - 2rem), 1fr));
+  grid-gap: 2rem;
+  justify-items: center;
+  padding: 2rem;
+}
+
+.projects-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--text-icons-color);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  padding: 0.5rem 3rem 0.5rem 3rem;
+  list-style: none;
+  gap: 2rem;
+  width: 100%;
+}
+
+.projects-nav-link {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+  color: var(--text-icons-color);
+  background-color: var(--dark-primary-color);
+  border-radius: 0.25rem;
+  text-decoration: none;
+  padding: 0.5rem;
+}
+
+.projects-nav-items {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+}
+
+.projects-nav-items a {
+  color: var(--dark-primary-color);
+  text-decoration: none;
+}
+
+.projects-nav-items a.active {
+  border-bottom: 0.125rem solid var(--dark-primary-color);
+}
+
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.5rem 3rem 0.5rem 3rem;
+  gap: 2rem;
+}
+
+.pagination .dropdown {
+  width: 4rem;
+}
+
+.pagination-button {
+  background: var(--dark-primary-color);
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  color: var(--text-icons-color);
+  text-decoration: none;
+  padding: 0.75rem;
+}
+
+.pagination-button.active {
+  background: var(--light-primary-color);
+}
+
+.project-card {
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--text-icons-color);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 30rem;
+  justify-content: space-between;
+  padding: 1rem 0;
+  gap: 1rem;
+  width: 100%;
+}
+
+.project-card-top {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.project-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 2rem 0 2rem;
+}
+
+.project-actions {
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
+  gap: 0.5rem;
+  align-self: flex-end;
+  width: 100%;
+  margin: 1rem 0;
+  padding: 0 1rem 0 2rem;
+}
+
+.project-card-actions-right {
+  background-color: rgba(0, 0, 0, 0.025);
+  display: flex;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  gap: 2rem;
+}
+
+.project-card-header {
+  display: flex;
+  flex-direction: column;
+  min-height: 20rem;
+}
+
+.project-risk-window {
+  display: flex;
+  font-weight: 700;
+  color: var(--text-icons-color);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  position: relative;
+  height: 10rem;
+  gap: 1rem;
+}
+
+.project-risk-window span {
+  position: absolute;
+  font-size: 2rem;
+  bottom: 1rem;
+  opacity: 0.4;
+}
+
+.project-risk-window .risk-value {
+  font-size: 2.5rem;
+}
+
+.project-risk-window.red {
+  background-color: var(--red-light);
+}
+
+.project-risk-window.yellow {
+  color: #2e2e2e;
+  background-color: var(--yellow-light);
+}
+
+.project-risk-window.green {
+  background-color: var(--green-light);
+}
+
+.project-risk-window.blue {
+  background-color: var(--dark-primary-color);
+}
+
+.project-card-date {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.project-date {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.alert {
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 0.25rem;
+  color: var(--text-icons-color);
+  display: flex;
+  padding: 1rem 2rem;
+  position: absolute;
+  justify-content: center;
+
+  animation-name: fadeOut;
+  animation-duration: 5s;
+  animation-delay: 1s;
+  animation-fill-mode: forwards;
+}
+
+.alert.success {
+  background-color: var(--green-light);
+}
+
+.alert.fail {
+  background-color: var(--red-light);
+}
+
+.alert.info {
+  background-color: var(--dark-primary-color);
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    display: none;
+  }
+}
+
+/* Simple Topbar Style */
+.simple-topbar-brand {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.simple-topbar-brand .simple-topbar-logo {
+  width: 7rem;
+  height: 2rem;
+  object-fit: cover;
+}
+
+.simple-topbar-brand p {
+  color: var(--text-icons-color);
+}
+
+.simple-topbar {
+  background-color: var(--dark-primary-color);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 3rem;
+  padding-right: 2rem;
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+  transition: padding-left 0.2s ease;
+  height: 5rem;
+}
+
+.simple-topbar a {
+  text-decoration: none;
+}
+
+/* Register section Style */
+.register-main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.register-main h2 {
+  margin-top: 4rem;
+  margin-bottom: 2rem;
+}
+
+.register-main form {
+  display: flex;
+  flex-direction: column;
+  width: 30rem;
+  gap: 1.5rem;
+}
+
+.register-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-container {
+  display: flex;
+}
+
+.button-container button,
+.modal-content button {
+  width: 6rem;
+  height: 3rem;
+  border: none;
+  background-color: var(--dark-primary-color);
+  color: var(--text-icons-color);
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.button-container a {
+  text-decoration: none;
+}
+
+.back-container {
+  padding-right: 8rem;
+  display: flex;
+  align-items: center;
+  color: var(--dark-primary-color);
+}
+
+.fa-chevron-left {
+  margin-right: 0.2rem;
+  font-size: xx-large;
+}
+
+/* Login section Style */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-container button {
+  width: 6rem;
+  height: 3rem;
+  border: none;
+  background-color: var(--dark-primary-color);
+  color: var(--text-icons-color);
+  margin-bottom: 3rem;
+  cursor: pointer;
+  transition: all 1s ease;
+}
+
+.login-container button:hover {
+  background-color: var(--light-primary-color);
+}
+
+.login-container a {
+  text-decoration: none;
+  color: var(--light-primary-color);
+}
+
+/* Colaboradores section Style*/
+.modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--text-icons-color);
+  padding: 3rem;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.4);
+}
+
+.modal p {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.modal-content {
+  display: flex;
+  justify-content: space-around;
+}
+
+.colaboradores-container {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  width: 70%;
+  background-color: var(--text-icons-color);
+  margin: 5rem auto;
+}
+
+.filter-register-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.header-container {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  padding: 2rem 0;
+  height: fit-content;
+}
+
+.register-button-container {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem 0;
+  height: fit-content;
+}
+
+.register-button-container a {
+  text-decoration: none;
+}
+
+.register-button {
+  display: flex;
+  padding-right: 1rem;
+}
+
+.register-button p {
+  color: var(--light-primary-color);
+  align-self: center;
+}
+
+.register-button .fa-plus {
+  font-size: x-large;
+  padding-left: 0.4rem;
+  color: var(--light-primary-color);
+}
+
+.scroll-section {
+  width: 100%;
+  min-height: 10rem;
+  overflow: auto;
+}
+
+.no-content-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  font-size: xx-large;
+}
+
+.registry {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  border-bottom: 0.25rem solid var(--divider-border-color);
+  margin: 1rem;
+  gap: 2rem;
+  padding-bottom: 1rem;
+}
+
+.colab-data {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.registry-actions {
+  display: flex;
+  gap: 3rem;
+}
+
+.registry-action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.admin-button {
+  padding: 1rem;
+  color: var(--text-icons-color);
+  cursor: pointer;
+  background-color: var(--green-light);
+  border: none;
+}
+
+.colab-data p {
+  color: var(--light-primary-color);
+}
+
+.colab-data h4 {
+  font-weight: 400;
+}
+
+.colab-data h3 {
+  font-weight: 400;
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: none; /* Color of the track */
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--dark-primary-color);
+}
+
+/* Edit Profile Style */
+
+.save-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.save-container button {
+  width: 6rem;
+  height: 3rem;
+  border: none;
+  background-color: var(--dark-primary-color);
+  color: var(--text-icons-color);
+  cursor: pointer;
+}
+
+.save-container a {
+  text-decoration: none;
+}
+
+/* Dashboard Styles */
+
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  width: 100%;
+}
+
+.dashboard-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  gap: 1rem;
+  background-color: var(--text-icons-color);
+  padding: 2rem;
+  width: 100%;
+}
+
+.dashboard-header h2 {
+  color: #2e2e2e;
+}
+
+.dashboard-header-link {
+  color: var(--dark-primary-color);
+  text-decoration: none;
+}
+
+.dashboard-header-link:hover {
+  color: var(--light-primary-color);
+}
+
+.generate-resume {
+  background-color: var(--dark-primary-color);
+  border: none;
+  border-radius: 0.5rem;
+  color: var(--divider-border-color);
+  font-size: 1rem;
+  outline: none;
+  text-decoration: none;
+  padding: 1rem;
+  transition: 0.5s all ease;
+}
+
+.generate-resume:hover {
+  background-color: var(--light-primary-color);
+}
+
+.dashboard-trendline-container {
+  display: flex;
+  background-color: var(--text-icons-color);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  width: 100%;
+}
+
+#project-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  overflow-y: scroll;
+}
+
+#project-list .pagination {
+  padding: 1rem 0;
+}
+
+.dashboard-project-list {
+  padding: 1rem;
+  border-right: 0.25rem solid var(--divider-color);
+  flex: 1;
+}
+
+.dashboard-project-list .list {
+  overflow-y: scroll;
+  max-height: 20rem;
+}
+
+.dashboard-graph {
+  flex: 2;
+  padding: 1rem;
+  min-height: 35rem;
+}
+
+.dashboard-graph-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dashboard-timeline-container {
+  justify-content: flex-end;
+  align-items: center;
+  flex: 1;
+  background-color: var(--text-icons-color);
+  display: flex;
+  gap: 2rem;
+}
+
+.dashboard-timeline {
+  display: flex;
+  gap: 1rem;
+}
+
+.dashboard-timeline-link {
+  color: var(--dark-primary-color);
+  background: transparent;
+  border: none;
+}
+
+.dashboard-timeline-link:hover,
+.dashboard-timeline-link.active {
+  color: var(--light-primary-color);
+}
+
+.graph,
+.pie-chart {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.graph {
+  height: 100%;
+}
+
+.pie-chart {
+  min-height: 25rem;
+}
+
+.dashboard-pie-chart-container {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  background-color: var(--text-icons-color);
+  padding: 2rem;
+  width: 100%;
+}
+
+.dashboard-pie-chart {
+  flex: 1;
+  text-align: center;
+}
+
+.dashboard-pie-chart-header {
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-risk-analysis-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  width: 100%;
+}
+
+.dashboard-risk-thermostat-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  gap: 1rem;
+  flex: 1;
+  background-color: var(--text-icons-color);
+}
+
+.dashboard-risk-thermostat-sticky {
+  position: sticky;
+  width: 100%;
+  top: 10vh;
+}
+
+.dashboard-risk-thermostat-header {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.dashboard-risk-analysis {
+  flex: 2;
+  background-color: var(--text-icons-color);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+}
+
+.dashboard-risk-thermostat {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  height: 10rem;
+  color: var(--text-icons-color);
+}
+
+.dashboard-risk-thermostat p {
+  font-weight: 700;
+}
+
+.dashboard-risk-thermostat-value {
+  font-size: 2.5rem;
+}
+
+.dashboard-risk-thermostat.green {
+  background-color: var(--green-light);
+}
+
+.dashboard-risk-thermostat.yellow {
+  color: #2e2e2e;
+  background-color: var(--yellow-light);
+}
+
+.dashboard-risk-thermostat.red {
+  background-color: var(--red-light);
+}
+
+.dashboard-risk-thermostat.blue {
+  background-color: var(--dark-primary-color);
+}
+
+.dashboard-risk-info {
+  width: 100%;
+  padding: 2rem;
+}
+
+.dashboard-risk-info .list-item {
+  padding: 0.5rem;
+}
+
+.dashboard-associated-risks {
+  text-align: center;
+  padding: 0;
+}
+
+.dashboard-associate-risk-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  gap: 2rem;
+  background-color: var(--text-icons-color);
+  padding: 2rem;
+  width: 100%;
+}
+
+.dashboard-associate-risk {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  width: 100%;
+}
+
+.dashboard-associate-risk-list,
+.dashboard-associate-risk-selected {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-associate-risk-list {
+  max-height: 30rem;
+}
+
+.dashboard-associate-risk-list ul,
+.dashboard-associate-risk-selected ul {
+  overflow-y: scroll;
+  max-height: 30rem;
+}
+
+.dashboard-associate-risk-selected input {
+  max-width: 5rem;
+}
+
+.dashboard-associate-risk-save-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.dashboard-associate-risk-save {
+  color: var(--text-icons-color);
+  background-color: var(--dark-primary-color);
+  border: none;
+  cursor: pointer;
+  padding: 1rem;
+}
+
+.dashboard-associate-risk-save:hover {
+  background-color: var(--light-primary-color);
+}
+
+/* Risks Styles */
+
+.risks-container {
+  display: flex;
+}
+
+.risk-container-null {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+}
+
+.risk-container-null img {
+  max-width: 10rem;
+}
+
+.risks-list-container {
+  text-align: center;
+  background-color: var(--text-icons-color);
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  width: 25rem;
+  height: 100%;
+  padding: 2rem 0.5rem;
+}
+
+.risks-list-container .list {
+  max-height: 50vh;
+  overflow-y: scroll;
+}
+
+.risks-list-container .list-item-link span {
+  font-weight: 700;
+}
+
+.risks-list-container.hide {
+  display: none;
+}
+
+.risks-list-toggle {
+  margin-top: 0.5rem;
+  position: fixed;
+  background-color: transparent;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.25rem;
+  outline: none;
+  color: var(--dark-primary-color);
+  cursor: pointer;
+  transition: all ease 0.2s;
+}
+
+.risks-list-toggle.collapse {
+  background-color: var(--dark-primary-color);
+  color: var(--text-icons-color);
+  margin-left: 1rem;
+}
+
+.risk-description-container {
+  margin: 1rem;
+  margin-left: 26rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: all ease 0.2s;
+  width: 100%;
+}
+
+.risk-description-container.collapse {
+  margin-left: 1rem;
+}
+
+.risk-description p {
+  color: rgb(83, 83, 83);
+}
+
+.risks-nav {
+  border-bottom: 0.25rem solid var(--divider-border-color);
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 0.5rem;
+}
+
+.add-new-risk {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 2rem;
+}
+
+.description-header {
+  margin-top: 10px;
+}
+
+.description {
+  margin-bottom: 20px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapper {
+  position: relative;
+}
+
+.c-wrap {
+  position: absolute;
+  bottom: 8px;
+  right: 10px; /* Adjust to move it away from the textarea's right edge */
+  color: #ccc;
+  font-size: 0.875em; /* Make it slightly smaller */
+  pointer-events: none; /* Ensure it doesn't interfere with user interaction */
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem; /* Add some space between the textarea and the button */
+}
+
+.submit-button {
+  padding: 10px 20px;
+  margin-top: 2rem;
+  font-size: 1em;
+  color: white;
+  background-color: #007bff; /* Blue color */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.submit-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.submit-button:focus {
+  outline: none; /* Remove the default focus outline */
+}
+
+.add-new-risk button {
+  border: transparent;
+  background: transparent;
+  text-decoration: none;
+  color: var(--dark-primary-color);
+  cursor: pointer;
+}
+
+.add-risk-container {
+  display: none;
+  width: 100%;
+  margin: 1rem;
+}
+
+.add-risk-header {
+  font-weight: 700;
+  display: block;
+  align-items: center;
+  padding: 2rem;
+  gap: 1rem;
+  background-color: var(--text-icons-color);
+}
+
+.add-risk-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+  background-color: var(--text-icons-color);
+}
+
+.add-risk-title {
+  display: flex;
+  padding: 1rem;
+}
+
+.add-risk-class {
+  width: 40%;
+}
+
+.name-placeholder::placeholder,
+.class-placeholder::placeholder,
+.description-placeholder::placeholder,
+.measures-placeholder::placeholder {
+  padding: 1rem;
+}
+
+.ponderation-placeholder::placeholder {
+  padding: 7rem;
+}
+
+.risk-body-desc {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.add-risk-description textarea,
+.add-risk-measures textarea {
+  width: 100%;
+  resize: none;
+  padding: 10px;
+}
+
+.add-risk-ponderation {
+  display: flex;
+  padding: 1rem;
+  gap: 1rem;
+  padding-top: 0;
+}
+
+.add-risk-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: var(--text-icons-color);
+}
+
+.add-return button,
+.add-save button {
+  display: flex;
+  width: 3rem;
+  border: none;
+  color: var(--dark-primary-color);
+  background: transparent;
+  cursor: pointer;
+  align-items: center;
+}
+
+.add-return a,
+.add-save a {
+  text-decoration: none;
+}
+
+.risk-header i {
+  color: var(--dark-primary-color);
+}
+
+.risk-header {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  gap: 1rem;
+  background-color: var(--text-icons-color);
+}
+
+.risk-description {
+  width: 100%;
+  display: flex;
+  background-color: var(--text-icons-color);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.description-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.description-header a {
+  color: var(--dark-primary-color);
+}
+
+.pond-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.pond {
+  color: var(--light-primary-color);
+}
+
+.risk-project-container {
+  display: flex;
+  margin-top: 2rem;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.associated-project {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border-bottom: 0.25rem solid var(--divider-border-color);
+  padding: 0.5rem;
+}
+
+.risk-project-desc {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.view-project a {
+  text-decoration: none;
+  color: var(--dark-primary-color);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Risk Analysis Styles */
+
+.risk-analysis-container {
+  display: none;
+  flex-direction: column;
+  padding: 2rem;
+  gap: 1rem;
+}
+
+.total-risk {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.total-risk p {
+  font-weight: 700;
+}
+
+.total-risk span {
+  color: var(--text-icons-color);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  min-width: 2rem;
+}
+
+.total-risk span.red {
+  background-color: var(--red-light);
+}
+
+.total-risk span.yellow {
+  color: #2e2e2e;
+  background-color: var(--yellow-light);
+}
+
+.total-risk span.green {
+  background-color: var(--green-light);
+}
+
+.total-risk span.blue {
+  background-color: var(--dark-primary-color);
+}
+
+/* Register Project Styles */
+
+.header-project-container {
+  background-color: var(--text-icons-color);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+}
+
+.register-project-container {
+  background-color: var(--text-icons-color);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  margin: 3rem auto;
+  padding: 2rem;
+  width: 90%;
+  gap: 1rem;
+}
+
+.project-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 3rem;
+}
+
+.project-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.form-group select {
+  padding: 0.5rem;
+  border: none;
+  border-bottom: 0.25rem solid var(--dark-primary-color);
+  outline: none;
+}
+
+/* Chart section */
+.chartBox {
+  position: relative;
+  display: flex;
+  padding: 1rem;
+  width: 100%;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.line-chart.dias,
+.line-chart.semanas,
+.line-chart.meses {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.previous-graph-button {
+  z-index: 1;
+  position: absolute;
+  width: 5rem;
+  height: 2rem;
+  right: 8rem;
+
+  border: none;
+  background-color: var(--dark-primary-color);
+  color: var(--text-icons-color);
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.next-graph-button {
+  z-index: 1;
+  position: absolute;
+  right: 0;
+
+  width: 5rem;
+  height: 2rem;
+  border: none;
+  background-color: var(--dark-primary-color);
+  color: var(--text-icons-color);
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+#b1weekly,
+#b2weekly {
+  display: none;
+}
+
+/* Media Queries */
+
+@media screen and (max-width: 880px) {
+  .dashboard-timeline-container,
+  .dashboard-pie-chart-container {
+    flex-direction: column;
+  }
+
+  .register-project-container,
+  .dashboard-container {
+    padding: 2rem 0;
+  }
+
+  .nav-left,
+  .topbar {
+    gap: 1rem;
+  }
+
+  .nav-left .nav-left-items {
+    display: none;
+  }
+
+  .nav-right .show-collapsed-nav {
+    display: block;
+  }
+
+  .nav-right .user {
+    display: none;
+  }
+
+  .projects-nav {
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .project-container {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+
+  .risks-list-toggle {
+    right: 0;
+  }
+
+  .colaboradores-container,
+  .risks-list-container {
+    width: 100%;
+  }
+
+  .risk-description-container {
+    margin-left: 0;
+  }
+
+  .register-main form {
+    width: 20rem;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    font-size: 0.875rem;
+    background-color: var(--text-icons-color);
+    top: 0;
+    left: auto;
+    bottom: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: width 0.2s ease;
+    padding: 0 2rem;
+    justify-content: space-between;
+  }
+
+  .sidebar ul {
+    flex-direction: row;
+  }
+
+  .a-text {
+    display: none;
+  }
+
+  .topbar {
+    margin-top: 8.311rem;
+    padding-left: 1rem;
+  }
+
+  #toggle-sidebar {
+    display: none;
+  }
+
+  main {
+    width: 100%;
+    margin-top: 11.144rem;
+    margin-left: 0;
+  }
+}
+
+@media screen and (max-width: 1550px) {
+  .dashboard-risk-analysis,
+  .dashboard-trendline-container,
+  .dashboard-risk-analysis-container {
+    flex-direction: column;
+  }
+
+  .dashboard-trendline-container {
+    flex-direction: column-reverse;
+  }
+
+  .dashboard-graph,
+  .dashboard-project-list {
+    width: 100%;
+    flex: auto;
+    border: none;
+  }
+
+  .dashboard-graph {
+    height: 35rem;
+  }
+
+  .dashboard-risk-thermostat-sticky {
+    position: static;
+    top: auto;
+  }
+}
+
+@media screen and (max-width: 880px) and (min-width: 1550px) {
+  .projects-nav {
+    flex-direction: column;
+  }
+
+  .project-container {
+    grid-template-columns: repeat(auto-fit, minmax(calc(50% - 2rem), 1fr));
+  }
+}

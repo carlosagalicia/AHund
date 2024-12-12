@@ -1,0 +1,35 @@
+<% risks.forEach(risk => { %>
+<li class="list-item"></li>
+<li class="list-item-content">
+  <div class="dropdown">
+    <button
+      class="dropdown-button"
+      onclick="toggleDropdown('dropContentAssociateRisk<%= risk.Nombre %>', 'dropiconAssociateRiskt<%= risk.Nombre %>')"
+    >
+      <div class="dropdown-button-left">
+        Desasociar Riesgo: <%= risk.Nombre %>
+      </div>
+      <div class="dropdown-button-right">
+        <i
+          class="fa-solid fa-caret-up"
+          id="dropiconAssociateRiskt<%= risk.Nombre %>"
+        ></i>
+      </div>
+    </button>
+    <div
+      class="dropdown-content-row"
+      id="dropContentAssociateRisk<%= risk.Nombre %>"
+    >
+      <div class="dropdown-content-col">
+        <h3>Descripcion</h3>
+        <p><%= risk.Descripcion %></p>
+        <form action="/dashboard//unassociate-risk" method="POST">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+          <input type="hidden" name="_IDRiesgo" value="<%= risk.IDRiesgo %>" />
+          <button type="submit" class="submit-button">Desasociar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</li>
+<% }) %>

@@ -1,0 +1,59 @@
+<% risks.forEach(risk => { %>
+<li class="list-item"></li>
+<li class="list-item-content">
+  <div class="dropdown">
+    <button
+      class="dropdown-button"
+      onclick="toggleDropdown('dropContentAssociateRisk<%= risk.Nombre %>', 'dropiconAssociateRiskt<%= risk.Nombre %>')"
+    >
+      <div class="dropdown-button-left">Asociar Riesgo: <%= risk.Nombre %></div>
+      <div class="dropdown-button-right">
+        <i
+          class="fa-solid fa-caret-up"
+          id="dropiconAssociateRiskt<%= risk.Nombre %>"
+        ></i>
+      </div>
+    </button>
+    <div
+      class="dropdown-content-row"
+      id="dropContentAssociateRisk<%= risk.Nombre %>"
+    >
+      <div class="dropdown-content-col">
+        <h3>Descripcion</h3>
+        <p><%= risk.Descripcion %></p>
+        <form
+          action="/dashboard/associate-risk"
+          method="POST"
+          id="associateForm<%= risk.IDRiesgo %>"
+        >
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+          <input type="hidden" name="_IDRiesgo" value="<%= risk.IDRiesgo %>" />
+          <h3>Medidas</h3>
+          <textarea
+            name="medidas"
+            id="medidas<%= risk.IDRiesgo %>"
+            placeholder="Descripción del Riesgo (max 512 caracteres)"
+            maxlength="512"
+            required
+          ></textarea>
+          <h3>Ponderacion:</h3>
+          <input
+            type="number"
+            name="ponderacion"
+            id="ponderacion<%= risk.IDRiesgo %>"
+            placeholder="0.0"
+            required
+          />
+          <button
+            type="button"
+            class="submit-button"
+            onclick="validateAssociateRiskForm('<%= risk.IDRiesgo %>')"
+          >
+            Asociar
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</li>
+<% }) %>

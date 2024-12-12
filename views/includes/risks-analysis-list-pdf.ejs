@@ -1,0 +1,41 @@
+<ul class="list">
+  <% risksOfProject.forEach(risk => { %>
+  <li class="list-item">
+    <div class="list-item-description">
+      <div class="circle blue"></div>
+      <span class="list-item-counter"><%= risk.PonderacionRelativa %></span>
+      <p><%= risk.Nombre %></p>
+      <strong><%= risk.Tipo %></strong>
+    </div>
+  </li>
+  <li class="list-item-content">
+    <div class="dropdown">
+      <button
+        class="dropdown-button"
+        onclick="toggleDropdown('dropContentRiskOfProject<%= risk.Nombre %>', 'dropiconRiskOfProject<%= risk.Nombre %>')"
+      >
+        <div class="dropdown-button-left">
+          Información de <%= risk.Nombre %>
+        </div>
+        <div class="dropdown-button-right">
+        </div>
+      </button>
+      <div
+        class="dropdown-content-row"
+        id="dropContentRiskOfProject<%= risk.Nombre %>"
+      >
+        <div class="dropdown-content-col">
+          <h3>Descripcion</h3>
+          <p><%= risk.Descripcion %></p>
+          <h3>Medidas</h3>
+          <p><%= risk.Medidas %></p>
+          <div class="pond">
+            <span>Ponderacion: </span>
+            <span><%= risk.PonderacionRelativa %></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+  <% }) %>
+</ul>

@@ -1,0 +1,49 @@
+<div class="dashboard-trendline-container">
+  <div class="dashboard-project-list">
+    <div id="project-list"></div>
+  </div>
+  <div class="dashboard-graph">
+    <div class="dashboard-graph-header">
+      <h2>Gráfico de Tendencia</h2>
+      <div class="dashboard-timeline">
+        <button
+          class="dashboard-timeline-link"
+          onclick="showGraph('DAILY')"
+          value="day"
+        >
+          DAILY
+        </button>
+        <button
+          class="dashboard-timeline-link"
+          onclick="showGraph('WEEKLY')"
+          value="week"
+        >
+          WEEKLY
+        </button>
+        <button
+          class="dashboard-timeline-link"
+          onclick="showGraph('MONTHLY')"
+          value="month"
+        >
+          MONTHLY
+        </button>
+      </div>
+    </div>
+    <div class="graph">
+      <div class="chartBox">
+        <div id="curve_chart_semanas" class="line-chart semanas"></div>
+        <div id="curve_chart_meses" class="line-chart meses"></div>
+        <div id="curve_chart_dias" class="line-chart dias"></div>
+        <button id="b1daily" class="previous-graph-button">Anterior</button>
+        <button id="b2daily" class="next-graph-button">Siguiente</button>
+        <button id="b1weekly" class="previous-graph-button">Anterior</button>
+        <button id="b2weekly" class="next-graph-button">Siguiente</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  // Pasar datos desde el servidor al cliente
+  window.dataFromServer = <%- JSON.stringify(projectData) %>;
+</script>

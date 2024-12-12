@@ -1,0 +1,36 @@
+<%- include("includes/head.ejs", {isAdmin: isAdmin})%>
+<main>
+  <% if (successMsg.length > 0) { %>
+  <div class="alert success"><%= successMsg %></div>
+  <% } %>
+
+  <div class="dashboard-header">
+    <a href="/?status=<%= status %>" class="dashboard-header-link"
+      >Proyectos <%= status === "actives" ? 'Activos' : 'Archivados'%></a
+    >
+    <i class="fa-solid fa-chevron-right"></i>
+    <h2><%- project.Nombre%></h2>
+    <i class="fa-solid fa-chevron-right"></i>
+    <a href="/dashboard/pdf?IDProyecto=<%= project.IDProyecto %>" class="generate-resume">
+      Descargar <i class="fa-solid fa-file-pdf"></i>
+    </a>
+  </div>
+  <div class="dashboard-container">
+    <%- include("includes/trendline.ejs", {projectData: projectData})%> <%-
+    include("includes/risk-analysis.ejs"), {isAdmin: isAdmin,project: project,
+    risksOfProject: risksOfProject}%> <% if(isAdmin) { %> <%-
+    include("includes/associate.ejs")%><% } %>
+  </div>
+  <div id="confirmation-Modal" class="modal">
+    <p id="confirmation-Text"></p>
+    <div id="input-Modal-Content"></div>
+    <div class="modal-content">
+      <button onclick="confirmAction()">Sí</button>
+      <button onclick="closeConfirmationModal()">No</button>
+    </div>
+  </div>
+</main>
+
+<script src="/javascript/pie.js"></script>
+<script src="/javascript/dashboard.js"></script>
+<%- include("includes/foot.ejs")%>

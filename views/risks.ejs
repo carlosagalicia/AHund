@@ -1,0 +1,114 @@
+<%- include("includes/head.ejs", {isAdmin: isAdmin})%>
+<main>
+  <% if (successMsg.length > 0) { %>
+  <div class="alert success"><%= successMsg %></div>
+  <% } %> <% if (inexistentType.length > 0) { %>
+  <div class="alert info"><%= inexistentType %></div>
+  <% } %> <% if (errorMsg.length > 0) { %>
+    <div class="alert fail"><%= errorMsg %></div>
+    <% } %>
+  <div class="risks-list-container">
+    <h2>Riesgos</h2>
+    <div class="risks-nav">
+      <div class="dropdown">
+        <button
+          class="dropdown-button"
+          onclick="toggleDropdown('dropcontentFilter', 'dropiconFilter')"
+        >
+          <div class="dropdown-button-left">
+            Filtrar por: <%= type ? `Riesgos de ${type}` : 'Mayor Concurrencia'
+            %>
+          </div>
+
+          <div class="dropdown-button-right">
+            <i class="fa-solid fa-caret-up" id="dropiconFilter"></i>
+          </div>
+        </button>
+        <div class="dropdown-content-absolute" id="dropcontentFilter">
+          <a href="/risks" class="dropdown-link">Mayor Concurrencia</a>
+          <% riskTypes.forEach(riskType => { %>
+          <a href="/risks/?type=<%= riskType.Tipo %>" class="dropdown-link"
+            >Riesgos de <%= riskType.Tipo %></a
+          >
+          <% }) %>
+        </div>
+      </div>
+    </div>
+    <ul class="list">
+      <% risks.forEach(risk => { %>
+      <li class="list-item border-bottom">
+        <div class="list-item-description">
+          <button
+            class="list-item-link button"
+            onclick="showRisk('<%= risk.IDRiesgo %>')"
+          >
+            <%= risk.Nombre %> <span><%= risk.Tipo %></span>
+          </button>
+        </div>
+        <div class="list-item-actions">
+          <% if(isAdmin) { %>
+          <form
+            method="POST"
+            action="/risks/delete-risk"
+            id="deleteRisk<%= risk.IDRiesgo %>"
+          >
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+            <input
+              type="hidden"
+              name="_IDRiesgo"
+              value="<%= risk.IDRiesgo %>"
+            />
+            <button
+              class="fa-solid fa-xmark delete"
+              type="button"
+              onclick="openConfirmationModal('deleteRisk<%= risk.IDRiesgo %>', '¿Estas seguro que quieres eliminar este riesgo?')"
+            ></button>
+          </form>
+          <form method="POST" action="/risks/edit-risk">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+            <input
+              type="hidden"
+              name="_IDRiesgo"
+              value="<%= risk.IDRiesgo %>"
+            />
+            <button class="fa-solid fa-pen edit" 
+                    type="button" 
+                    onclick="editRisk('<%= risk.IDRiesgo %>')"
+            ></button>
+          </form>
+          <% } %>
+        </div>
+      </li>
+      <% }) %>
+    </ul>
+    <% if(isAdmin) { %>
+    <div class="add-new-risk">
+      <button class="add-new-risk button">
+        Agregar Riesgo <i class="fa-solid fa-plus"></i>
+      </button>
+    </div>
+    <% } %>
+  </div>
+
+  <div class="risks-container">
+    <button class="risks-list-toggle" onclick="toggleRisksList()">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <div class="risk-description-container">
+      <div class="risk-container-null">
+        <h2>Selecciona un Riesgo para leerlo</h2>
+        <img src="/images/appix-logo.png" alt="Apix logo" />
+        <p>No hay nada seleccionado</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="confirmation-Modal" class="modal">
+    <p id="confirmation-Text"></p>
+    <div class="modal-content">
+      <button onclick="confirmAction()">Sí</button>
+      <button onclick="closeConfirmationModal()">No</button>
+    </div>
+  </div>
+</main>
+<%- include("includes/foot.ejs")%>

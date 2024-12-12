@@ -1,0 +1,117 @@
+<%- include("includes/head.ejs", {isAdmin: isAdmin})%>
+<main>
+  <div class="header-project-container">
+    <h2>Registar Proyecto</h2>
+  </div>
+
+  <% if (successMsg.length > 0) { %>
+  <div class="alert success"><%= successMsg %></div>
+  <% } %> <% if (errorMsg.length > 0) { %>  
+  <div class="alert fail"><%= errorMsg %></div>
+  <% } %>
+
+  <form
+    action="/post-register-project"
+    method="post"
+    class="register-project-container"
+    onsubmit="return validateRegisterProjectForm()"
+  >
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+    <div class="project-row">
+      <div class="project-column">
+        <div class="form-group">
+          <h3>Datos del Proyecto</h3>
+        </div>
+
+        <div class="form-group">
+          <label for="tipoProyecto">Tipo de Proyecto:</label>
+          <select id="tipoProyecto" name="tipoProyecto" required>
+            <option value="" disabled selected>Seleccione una opcion</option>
+            <option value="Aplicacion Web">Aplicacion Web</option>
+            <option value="Aplicacion Movil">Aplicacion Movil</option>
+            <option value="Diseño">Diseño</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="nombreProyecto">Nombre del Proyecto:</label>
+          <input
+            type="text"
+            id="nombreProyecto"
+            name="nombreProyecto"
+            placeholder="Ingresa el nombre"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="fechaInicio">Fecha de Inicio:</label>
+          <input type="date" id="fechaInicio" name="fechaInicio" required />
+        </div>
+
+        <div class="form-group">
+          <label for="fechaFin">Fecha de Fin:</label>
+          <input type="date" id="fechaFin" name="fechaFin" required /> 
+        </div>
+      </div>
+
+      <div class="project-column">
+        <div class="form-group">
+          <h3>Datos del cliente</h3>
+        </div>
+
+        <div class="form-group">
+          <label for="nombreCliente">Nombre:</label>
+          <input
+            type="text"
+            id="nombreCliente"
+            name="nombreCliente"
+            placeholder="Ingresa el nombre"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="emailCliente">Email:</label>
+          <input
+            type="email"
+            id="emailCliente"
+            name="emailCliente"
+            placeholder="Ingresa email"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="telefonoCliente">Teléfono:</label>
+          <input
+            type="tel"
+            id="telefonoCliente"
+            name="telefonoCliente"
+            placeholder="Ingresa telefono"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="descripcionCliente">Descripcion:</label>
+          <input
+            type="text"
+            id="descripcionCliente"
+            name="descripcionCliente"
+            placeholder="Ingresa una descripcion"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="save-container">
+      <a href="/">
+        <div class="back-container">
+          <i class="fa-solid fa-chevron-left"></i>
+          <p>Atrás</p>
+        </div>
+      </a>
+      <button type="submit">Registrar</button>
+    </div>
+  </form>
+</main>
+<%- include("includes/foot.ejs")%>

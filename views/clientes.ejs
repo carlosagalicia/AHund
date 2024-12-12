@@ -1,0 +1,57 @@
+<%- include("includes/head.ejs", {isAdmin: isAdmin})%>
+<main>
+  <div class="colaboradores-container">
+    <div class="header-container">
+      <h2>Lista de Clientes</h2>
+      <div class="filter-register-container">
+        <div class="dropdown">
+          <button
+            class="dropdown-button"
+            onclick="toggleDropdown('dropcontentFilter', 'dropiconFilter')"
+          >
+            <div class="dropdown-button-left">
+              Filtrar por: <% if (filter === null) { %> Nombre (A-Z) <% } else
+              if (filter === 'name(Z-A)') { %> Nombre (Z-A) <% } else if (filter
+              === 'correo(A-Z)') { %> Email (A-Z) <% } else if (filter ===
+              'correo(Z-A)') { %> Email (Z-A) <% } else{ %> Nombre (A-Z) <% }%>
+            </div>
+
+            <div class="dropdown-button-right">
+              <i class="fa-solid fa-caret-up" id="dropiconFilter"></i>
+            </div>
+          </button>
+          <div class="dropdown-content-absolute" id="dropcontentFilter">
+            <a href="/clients" class="dropdown-link">Nombre (A-Z)</a>
+            <a href="/clients?filter=name(Z-A)" class="dropdown-link"
+              >Nombre (Z-A)</a
+            >
+            <a href="/clients?filter=correo(A-Z)" class="dropdown-link"
+              >Email (A-Z)</a
+            >
+            <a href="/clients?filter=correo(Z-A)" class="dropdown-link"
+              >Email (Z-A)</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-section">
+      <div class="no-content-message">No hay información</div>
+      <% clientes.forEach(cliente => { %>
+      <div class="registry-container">
+        <div class="registry">
+          <div class="colab-data">
+            <h3 id="name" name="name"><%= cliente.Nombre %></h3>
+            <h4 id="apellidos" name="apellidos">
+              <strong>Teléfono:</strong> <%= cliente.Telefono %>
+            </h4>
+            <p id="correo" name="correo"><%= cliente.CorreoElectronico %></p>
+          </div>
+        </div>
+        <div class="linea"></div>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</main>
+<%- include("includes/foot.ejs")%>

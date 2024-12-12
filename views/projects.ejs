@@ -1,0 +1,274 @@
+<%- include("includes/head.ejs", {isAdmin: isAdmin, filter: filter,})%>
+<main>
+  <ul class="projects-nav">
+    <li class="projects-nav-items">
+      <a href="/" class="<%= status === 'actives' ? 'active' : '' %>"
+        >Activos</a
+      >
+      <a
+        href="/?status=archived"
+        class="<%= status === 'archived' ? 'active' : '' %>"
+        >Archivados</a
+      >
+    </li>
+
+    <li>
+      <h2>
+        <%= status === 'actives' ? 'Proyectos Activos' : 'Proyectos Archivados'
+        %>
+      </h2>
+      <a href="/dashboard" class="projects-nav-link">
+        <strong>Dashboard</strong> <i class="fa-solid fa-chart-line"></i>
+      </a>
+    </li>
+
+    <li class="projects-nav-items">
+      <div class="dropdown">
+        <button
+          class="dropdown-button"
+          onclick="toggleDropdown('dropcontentFilter', 'dropiconFilter')"
+        >
+          <div class="dropdown-button-left">
+            Filtrar por: <% if (filter === 'assigned') { %> Favoritos <% } else
+            if (filter === 'older') { %> Más Antiguos <% } else if (filter ===
+            'recent') { %> Más Recientes <% } else if (filter === 'higher'){ %>
+            Mayor Riesgo <% } %>
+          </div>
+
+          <div class="dropdown-button-right">
+            <i class="fa-solid fa-caret-up" id="dropiconFilter"></i>
+          </div>
+        </button>
+        <div class="dropdown-content-absolute" id="dropcontentFilter">
+          <a
+            href="<%= status === 'actives' ?  '/' : '/?status=archived' %>"
+            class="dropdown-link"
+            >Favoritos</a
+          >
+          <a
+            href="<%= status === 'actives' ? '/?filter=higher' : '/?status=archived&filter=higher' %>"
+            class="dropdown-link"
+            >Mayor Riesgo</a
+          >
+          <a
+            href="<%= status === 'actives' ?  '/?filter=older' : '/?status=archived&filter=older' %>"
+            class="dropdown-link"
+            >Más Antiguos</a
+          >
+          <a
+            href="<%= status === 'actives' ?  '/?filter=recent' : '/?status=archived&filter=recent' %>"
+            class="dropdown-link"
+            >Más Recientes</a
+          >
+        </div>
+      </div>
+    </li>
+  </ul>
+
+  <% if (successMsg.length > 0) { %>
+  <div class="alert success"><%= successMsg %></div>
+  <% } %> <% if (inexistentProjects.length > 0) { %>
+  <div class="alert info"><%= inexistentProjects %></div>
+  <% } %> <% if (inexistentPage.length > 0) { %>
+  <div class="alert info"><%= inexistentPage %></div>
+  <% } %><% if (inexistentFilter.length > 0) { %>
+  <div class="alert info"><%= inexistentFilter %></div>
+  <% } %>
+
+  <div class="project-container">
+    <% projects.forEach(project => { %>
+    <div class="project-card" data-id="<%= project.IDProyecto %>">
+      <div class="project-card-top">
+        <div class="project-card-header">
+          <div class="project-actions">
+            <div>
+              <% if(isAdmin) { %>
+              <form
+                method="POST"
+                action="/highlight-project"
+                id="highlight-project<%- project.IDProyecto %>"
+              >
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                <input
+                  type="hidden"
+                  name="_IDProyecto"
+                  value="<%= project.IDProyecto %>"
+                />
+                <button
+                  class="<%= project.IDColaborador ? 'fa-solid fa-bookmark favorite' : 'fa-regular fa-bookmark favorite'%>"
+                  type="submit"
+                ></button>
+              </form>
+              <% } %>
+            </div>
+            <div class="project-card-actions-right">
+              <% if(!isAdmin) { %>
+              <form
+                method="POST"
+                action="/highlight-project"
+                id="highlight-project<%- project.IDProyecto %>"
+              >
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                <input
+                  type="hidden"
+                  name="_IDProyecto"
+                  value="<%= project.IDProyecto %>"
+                />
+                <button
+                  class="<%= project.IDColaborador ? 'fa-solid fa-bookmark favorite' : 'fa-regular fa-bookmark favorite'%>"
+                  type="submit"
+                ></button>
+              </form>
+              <% } %> <% if(isAdmin) { %> <% if(status === "actives") {%>
+              <form
+                class="archive-project-form"
+                method="POST"
+                action="/archive-project"
+              >
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                <input
+                  type="hidden"
+                  name="IDProyecto"
+                  value="<%= project.IDProyecto %>"
+                />
+                <button
+                  type="submit"
+                  class="fa-regular fa-folder edit"
+                ></button>
+              </form>
+              <% } else { %>
+              <form
+                class="archive-project-form"
+                method="POST"
+                action="/unarchive-project"
+              >
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                <input
+                  type="hidden"
+                  name="IDProyecto"
+                  value="<%= project.IDProyecto %>"
+                />
+                <button type="submit" class="fa-solid fa-folder edit"></button>
+              </form>
+              <% } %>
+              <form method="GET" action="/edit-project">
+                <input
+                  type="hidden"
+                  name="IDProyecto"
+                  value="<%= project.IDProyecto %>"
+                />
+                <button class="fa-solid fa-pen edit" type="submit"></button>
+              </form>
+              <form
+                method="POST"
+                action="/delete-project"
+                id="delete-project<%- project.IDProyecto %>"
+              >
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                <input
+                  type="hidden"
+                  name="_IDProyecto"
+                  value="<%= project.IDProyecto %>"
+                />
+                <button
+                  class="fa-solid fa-xmark delete"
+                  type="button"
+                  onclick="
+                      openConfirmationModal('delete-project<%- project.IDProyecto %>', '¿Estás seguro de que deseas eliminar el proyecto?')"
+                ></button>
+              </form>
+              <% } %>
+            </div>
+          </div>
+          <div class="project-info">
+            <h2><%= project.Nombre %></h2>
+            <span><%= project.Tipo %></span>
+            <div class="project-card-date">
+              <% const options = { year: 'numeric', month: '2-digit', day:
+              '2-digit' }; const StartFormatedDate =
+              project.FechaInicio.toLocaleDateString('es-ES', options); const
+              FinalFormatedDate = project.FechaFinal.toLocaleDateString('es-ES',
+              options);%>
+              <div class="project-date">
+                <h3>Fecha de inicio:</h3>
+                <span class="project-date"> <%= StartFormatedDate %></span>
+              </div>
+
+              <div class="project-date">
+                <h3>Fecha de fin:</h3>
+                <span class="project-date"> <%= FinalFormatedDate %></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% let PRTotal = parseInt(project.PonderacionRelativaTotal) %>
+        <a
+          href="/dashboard/?IDProyecto=<%= project.IDProyecto %>"
+          class="project-risk-window <%= PRTotal ? PRTotal < 30 ? 'green' : PRTotal < 60 ? 'yellow' : 'red' : 'blue' %>"
+        >
+          <span><%= PRTotal > 0 ? 'Riesgo Total' : '' %></span>
+          <p class="risk-value">
+            <%= PRTotal > 0 ? PRTotal : 'Sin Riesgo' %><%= PRTotal > 0 ? '%' :
+            '' %>
+          </p>
+        </a>
+      </div>
+      <div class="project-info">
+        <div class="dropdown">
+          <button
+            class="dropdown-button"
+            onclick="toggleDropdown('dropcontent<%= project.IDProyecto %>', 'dropicon<%= project.IDProyecto %>')"
+          >
+            <div class="dropdown-button-left">Información del cliente</div>
+            <div class="dropdown-button-right">
+              <i
+                class="fa-solid fa-caret-up"
+                id="dropicon<%= project.IDProyecto %>"
+              ></i>
+            </div>
+          </button>
+          <div
+            class="dropdown-content-flex"
+            id="dropcontent<%= project.IDProyecto %>"
+          ></div>
+        </div>
+      </div>
+
+      <div class="project-info" id="risks-list<%= project.IDProyecto %>"></div>
+    </div>
+    <% }) %>
+  </div>
+
+  <div class="pagination">
+    <% if (pageNumber > 1) { %>
+    <a
+      href="<%= status === 'actives' ? '/?page=' + (pageNumber - 1) : '/?status=archived&page=' + (pageNumber - 1) %><%= filter !== null ? '&filter=' + filter : '' %>"
+      class="pagination-button"
+      >Anterior</a
+    >
+
+    <% } %> <% if(totalPages > 1) { %> <% for (let i = ((pageNumber - 1) !== 0 ?
+    (pageNumber - 1) : 1); i <= (pageNumber !== totalPages ? (pageNumber + 1) :
+    totalPages); i++) { %>
+    <a
+      href="<%= status === 'actives' ? '/?page=' + (i) : '/?status=archived&page=' + (i) %><%= filter !== null ? '&filter=' + filter : '' %>"
+      class="pagination-button <%= pageNumber === i ? 'active' : '' %>"
+      ><%= i %></a
+    >
+    <% } %> <% } %> <% if (pageNumber < totalPages) { %>
+    <a
+      href="<%= status === 'actives' ? '/?page=' + (pageNumber + 1) : '/?status=archived&page=' + (pageNumber + 1) %><%= filter !== null ? '&filter=' + filter : '' %>"
+      class="pagination-button"
+      >Siguiente</a
+    >
+    <% } %>
+  </div>
+  <div id="confirmation-Modal" class="modal">
+    <p id="confirmation-Text"></p>
+    <div class="modal-content">
+      <button onclick="confirmAction()">Sí</button>
+      <button onclick="closeConfirmationModal()">No</button>
+    </div>
+  </div>
+</main>
+<%- include("includes/foot.ejs")%>

@@ -1,0 +1,60 @@
+<div class="risk-header" id="addRiskHeader">
+  <h2>Agregar Riesgo</h2>
+</div>
+<form
+  class="risk-description"
+  id="riskForm"
+  method="post"
+  action="/risks/add-risk"
+>
+  <input type="hidden" name="_csrf" id="csrfToken" value="<%= csrfToken %>" />
+
+  <div class="description-header">
+    <h3>Nombre</h3>
+  </div>
+  <div class="description">
+    <input
+      type="text"
+      name="nombreRiesgo"
+      id="nombreRiesgo"
+      placeholder="Nombre del Riesgo"
+      required
+    />
+  </div>
+
+  <div class="description-header">
+    <h3>Tipo de Riesgo</h3>
+  </div>
+  <div class="description">
+    <input
+      type="text"
+      name="tipo"
+      id="tipo"
+      placeholder="Tipo"
+      required
+    />
+  </div>
+
+  <div class="description-header">
+    <h3>Descripción</h3>
+  </div>
+  <div class="description">
+    <div class="wrapper">
+      <textarea
+        name="descripcion"
+        id="descripcion"
+        placeholder="Descripción del Riesgo (max 512 caracteres)"
+        maxlength="512"
+        required
+      ></textarea>
+      <div class="c-wrap">
+        <span id="charCount">512</span> caracteres restantes
+      </div>
+    </div>
+  </div>
+  <div class="button-container">
+    <button type="button" onclick="validateRiskForm()" class="submitRiskButton">
+      Agregar
+    </button>
+  </div>
+</form>

@@ -1,0 +1,66 @@
+<%- include("includes/simple-head.ejs", {isAdmin: isAdmin})%>
+<div class="register-main">
+  <% if (successMsgINSERT.length > 0) { %>
+  <div class="alert success"><%= successMsgINSERT %></div>
+  <% } %> <% if (failMsgINSERT.length > 0) { %>
+  <div class="alert fail"><%= failMsgINSERT %></div>
+  <% } %>
+  <h2>Registrar Colaborador</h2>
+  <form
+    action="/colaboradores/registrar-colaborador"
+    method="POST"
+    onsubmit="return validateRegisterColabForm()"
+  >
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+    <input
+      type="email"
+      id="email"
+      name="email"
+      placeholder="Correo Electrónico del Colaborador"
+      required
+    />
+
+    <input type="text" id="name" name="name" placeholder="Nombre" required />
+    <div class="register-container">
+      <input
+        type="text"
+        id="Amaterno"
+        name="Amaterno"
+        placeholder="Apellido Paterno"
+        required
+      />
+      <input
+        type="text"
+        id="Apaterno"
+        name="Apaterno"
+        placeholder="Apellido Materno"
+        required
+      />
+    </div>
+
+    <input
+      type="text"
+      id="Usuario"
+      name="Usuario"
+      placeholder="Usuario"
+      required
+    />
+    <input
+      type="password"
+      id="password"
+      name="password"
+      placeholder="Contraseña"
+      required
+    />
+    <div class="button-container">
+      <a href="/colaboradores">
+        <div class="back-container">
+          <i class="fa-solid fa-chevron-left"></i>
+          <p>Atrás</p>
+        </div>
+      </a>
+      <button type="submit">Enviar</button>
+    </div>
+  </form>
+</div>
+<%- include("includes/foot.ejs")%>

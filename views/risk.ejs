@@ -1,0 +1,37 @@
+<div class="risk-header">
+  <h2><%= riskOverview[0].Nombre %></h2>
+  <i class="fa-chevron-right fa-solid"></i>
+  <p><%= riskOverview[0].Tipo %></p>
+</div>
+<div class="risk-description">
+  <div class="description-header">
+    <h2>Descripción</h2>
+  </div>
+  <div class="description">
+    <p><%= riskOverview[0].Descripcion %></p>
+  </div>
+  <div class="risk-project-container">
+    <h2>Proyectos Asociados</h2>
+
+    <% riskOverview[1].forEach(project => { %>
+    <div class="associated-project">
+      <div class="risk-project-desc">
+        <div class="circle blue"></div>
+        <h3><%= project.NombreProyecto %></h3>
+        <div class="list-item-actions">
+          <a href="/dashboard/?IDProyecto=<%= project.IDProyecto %>">Visitar</a>
+        </div>
+      </div>
+      <div class="description-header">
+        <h4>Medidas</h4>
+      </div>
+      <div class="description">
+        <p><%= project.Medidas %></p>
+      </div>
+      <span class="pond"
+        >Ponderación relativa: <%= project.PonderacionRelativa %></span
+      >
+    </div>
+    <% }) %>
+  </div>
+</div>

@@ -1,0 +1,98 @@
+<div class="dashboard-risk-analysis-container">
+  <div class="dashboard-risk-thermostat-container">
+    <div class="dashboard-risk-thermostat-sticky">
+      <div class="dashboard-risk-thermostat-header">
+        <% const options = { year: 'numeric', month: '2-digit', day: '2-digit'
+        }; const StartFromatedDate =
+        project.FechaInicio.toLocaleDateString('es-ES', options); const
+        FinalFromatedDate = project.FechaInicio.toLocaleDateString('es-ES',
+        options); %>
+
+        <div>
+          <h2><%- project.Nombre%></h2>
+          <span> <%- project.Tipo%></span>
+        </div>
+        <div class="project-date">
+          <h3>Fecha de inicio:</h3>
+          <span class="project-date"> <%= StartFromatedDate %></span>
+        </div>
+        <div class="project-date">
+          <h3>Fecha de fin:</h3>
+          <span class="project-date"> <%= FinalFromatedDate %></span>
+        </div>
+      </div>
+      <% let PRTotal = project.PonderacionRelativaTotal; %>
+      <div
+        href="/dashboard/<%= project.Nombre %>"
+        class="project-risk-window <%= PRTotal ? PRTotal < 30 ? 'green' : PRTotal < 60 ? 'yellow' : 'red' : 'blue' %>"
+      >
+        <span><%= PRTotal > 0 ? 'Riesgo Total' : '' %></span>
+        <p class="risk-value">
+          <%= PRTotal > 0 ? PRTotal : 'Sin Riesgo' %><%= PRTotal > 0 ? '%' : ''
+          %>
+        </p>
+      </div>
+      <div class="dashboard-risk-info">
+        <h3>Simbología</h3>
+        <ul class="list">
+          <li class="list-item">
+            <div class="list-item-description">
+              <div class="circle green"></div>
+              <p class="list-item">
+                Monitorización periódica. No se requieren acciones inmediatas.
+              </p>
+            </div>
+            <div class="list-item-actions"></div>
+          </li>
+          <li class="list-item">
+            <div class="list-item-description">
+              <div class="circle yellow"></div>
+              <p class="list-item">
+                Revisión y mitigación necesaria. Implementar medidas de control
+                para reducir el riesgo.
+              </p>
+            </div>
+            <div class="list-item-actions"></div>
+          </li>
+          <li class="list-item">
+            <div class="list-item-description">
+              <div class="circle red"></div>
+              <p class="list-item">
+                Atención inmediata requerida. Implementar medidas correctivas y
+                de contingencia.
+              </p>
+            </div>
+            <div class="list-item-actions"></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="dashboard-risk-analysis">
+    <div class="dashboard-risk-analysis-header">
+      <h2>Análisis de Riesgos</h2>
+    </div>
+    <div class="dashboard-pie-chart-container">
+      <div class="dashboard-pie-chart">
+        <div class="dashboard-pie-chart-header">
+          <h3>Gráfico de pastel de tipo de riesgo</h3>
+        </div>
+        <div id="piechart1" class="pie-chart"></div>
+      </div>
+      <div class="dashboard-pie-chart">
+        <div class="dashboard-pie-chart-header">
+          <h3>Gráfico de pastel de riesgos</h3>
+        </div>
+        <div id="piechart2" class="pie-chart"></div>
+      </div>
+    </div>
+    <div class="total-risk">
+      <p>Riesgo total:</p>
+      <span
+        class="<%= PRTotal ? PRTotal < 30 ? 'green' : PRTotal < 60 ? 'yellow' : 'red' : 'blue' %>"
+        ><%= PRTotal %>%</span
+      >
+    </div>
+    <%- include("risks-analysis-list.ejs"), {risksOfProject}%>
+  </div>
+</div>

@@ -1,0 +1,61 @@
+<%- include("includes/simple-head.ejs")%>
+<div class="register-main">
+  <% if (successMsg.length > 0) { %>
+    <div class="alert success"><%= successMsg %></div>
+  <% } %>
+  <h2>Editar perfil</h2>
+  <form action="/post-edit-profile" method="post" onsubmit="return validateEditProfileForm()"> 
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+    <input
+      type="email"
+      id="userEmail"
+      name="userEmail"
+      value=<%= user.CorreoElectronico %>
+      placeholder="Correo Electrónico"
+      required
+    />
+    <input type="text" id="name" name="name" value=<%= user.Nombre %> placeholder="Nombre" required />
+    <div class="register-container">
+      <input
+        type="text"
+        id="aPaterno"
+        name="aPaterno"
+        value=<%= user.ApellidoPaterno %>
+        placeholder="Apellido Paterno"
+        required
+      />
+      <input
+        type="text"
+        id="aMaterno"
+        name="aMaterno"
+        value=<%= user.ApellidoMaterno %>
+        placeholder="Apellido Materno"
+        required
+      />
+    </div>
+    <input
+      type="password"
+      id="userPassword"
+      name="userPassword"
+      placeholder="Contraseña"
+    />
+    <input
+      type="password"
+      id="checkPassword"
+      name="checkPassword"
+      placeholder="Confirmar Contraseña"
+    />
+    <div class="save-container">
+      <a href="/">
+        <div class="back-container">
+          <i class="fa-solid fa-chevron-left"></i>
+          <p>Atrás</p>
+        </div>
+      </a>
+      <div class="save-container">
+        <button type="submit">Guardar</button>
+      </div>
+    </div>
+  </form>
+</div>
+<%- include("includes/foot.ejs")%>

@@ -1,0 +1,122 @@
+<%- include("includes/head.ejs", {isAdmin: isAdmin})%>
+<main>
+  <% if (successMsgDELETE.length > 0) { %>
+  <div class="alert success"><%= successMsgDELETE %></div>
+  <% } %> <% if (successMsgPUT.length > 0) { %>
+  <div class="alert success"><%= successMsgPUT %></div>
+  <% } %>
+  <div class="colaboradores-container">
+    <div class="header-container">
+      <h2>Lista de Colaboradores</h2>
+      <div class="filter-register-container">
+        <div class = "dropdown-container">
+          <div class="dropdown">
+            <button
+              class="dropdown-button"
+              onclick="toggleDropdown('dropcontentFilter', 'dropiconFilter')"
+            >
+              <div class="dropdown-button-left">
+                Filtrar por: <% if (filter === null) { %> Nombre (A-Z) <% } else if
+                (filter === 'name(Z-A)') { %> Nombre (Z-A) <% } else{ %> Nombre
+                (A-Z) <% }%>
+              </div>
+    
+              <div class="dropdown-button-right">
+                <i class="fa-solid fa-caret-up" id="dropiconFilter"></i>
+              </div>
+            </button>
+            <div class="dropdown-content-absolute" id="dropcontentFilter">
+              <a href="/colaboradores" class="dropdown-link">Nombre (A-Z)</a>
+              <a href="/colaboradores?filter=name(Z-A)" class="dropdown-link"
+                >Nombre (Z-A)</a
+              >
+            </div>
+          </div>  
+        </div>
+        <div class="register-button-container">
+          <a href="/colaboradores/registrar-colaborador" class="register-button">
+            <p>Registrar Colaborador</p>
+            <i class="fa-solid fa-plus"></i>
+          </a>
+        </div>
+      </div>
+      
+    </div>
+    <div class="scroll-section">
+      <div class="no-content-message">No hay información</div>
+      <% colaboradores.forEach(colaborador => { %>
+      <div class="registry-container">
+        <div class="registry">
+          <div class="colab-data">
+            <h3 id="name" name="name"><%= colaborador.Nombre %></h3>
+            <h4 id="apellidos" name="apellidos">
+              <%= colaborador.ApellidoPaterno %> <%= colaborador.ApellidoMaterno
+              %>
+            </h4>
+            <p id="correo" name="correo">
+              <%= colaborador.CorreoElectronico %>
+            </p>
+          </div>
+          <div class="registry-actions">
+            <div id="admin" name="admin" class="registry-action">
+              <form
+                id="modifyColab<%= colaborador.CorreoElectronico %>"
+                method="POST"
+                action="/colaboradores/modify"
+              >
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                <input
+                  type="hidden"
+                  name="_email"
+                  value="<%= colaborador.CorreoElectronico %>"
+                />
+                <button
+                  type="button"
+                  class="admin-button"
+                  onclick="
+                openConfirmationModal('modifyColab<%=colaborador.CorreoElectronico%>', '¿Estás seguro de que deseas modificar a este colaborador?')"
+                >
+                  Hacer Administrador
+                </button>
+              </form>
+            </div>
+            <div class="registry-action">
+              <h3>Eliminar</h3>
+              <form
+                id="deleteColab<%= colaborador.CorreoElectronico %>"
+                method="POST"
+                action="/colaboradores/delete"
+              >
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                <input
+                  type="hidden"
+                  name="_email"
+                  value="<%= colaborador.CorreoElectronico %>"
+                />
+                <button
+                  type="button"
+                  class="delete"
+                  id="submitbutton"
+                  onclick="openConfirmationModal('deleteColab<%= colaborador.CorreoElectronico %>', '¿Estás seguro de que deseas eliminar a este colaborador?')"
+                >
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="linea"></div>
+      </div>
+      <% }) %>
+    </div>
+    
+  </div>
+  <div id="confirmation-Modal" class="modal">
+    <p id="confirmation-Text"></p>
+    <div class="modal-content">
+      <button onclick="confirmAction()">Sí</button>
+      <button onclick="closeConfirmationModal()">No</button>
+    </div>
+  </div>
+</main>
+<%- include("includes/foot.ejs")%>

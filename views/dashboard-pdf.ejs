@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/dropdown.css" />
+    <link rel="stylesheet" href="/css/list.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="/images/logo_favicon.png"
+      sizes="32x32"
+    />
+    <script
+      type="text/javascript"
+      src="https://www.gstatic.com/charts/loader.js"
+    ></script>
+    <title>Risk Manager</title>
+  </head>
+  <style>
+    /* Fonts */
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+
+    /* General variables */
+    :root {
+      --dark-primary-color: #006ec7;
+      --light-primary-color: #00a7fd;
+      --accent-color: #67daee;
+      --text-icons-color: #ffffff;
+      --divider-color: #f0f0f0;
+      --divider-border-color: #e2e2e2;
+      --green-light: rgb(21, 201, 21);
+      --yellow-light: rgb(244, 225, 9);
+      --red-light: rgb(244, 106, 85);
+    }
+
+    /* General settings */
+    * {
+      box-sizing: border-box;
+      font-family: "Rubik", sans-serif;
+      font-optical-sizing: auto;
+      font-style: normal;
+      line-height: 1.5;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      position: relative;
+    }
+
+    body {
+      background-color: var(--divider-color);
+    }
+    /* Dashboard Styles */
+
+    .dashboard-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      padding: 2rem;
+      width: 100%;
+    }
+
+    .dashboard-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem;
+      background-color: var(--text-icons-color);
+      padding: 2rem;
+      width: 100%;
+    }
+
+    .dashboard-header h2 {
+      color: #2e2e2e;
+    }
+
+    .dashboard-header-link {
+      color: var(--dark-primary-color);
+      text-decoration: none;
+    }
+
+    .dashboard-header-link:hover {
+      color: var(--light-primary-color);
+    }
+
+    .generate-resume {
+      background-color: var(--dark-primary-color);
+      border: none;
+      border-radius: 0.5rem;
+      color: var(--divider-border-color);
+      text-decoration: none;
+      outline: none;
+      padding: 1rem;
+      transition: 0.5s all ease;
+    }
+
+    .generate-resume:hover {
+      background-color: var(--light-primary-color);
+    }
+
+    .dashboard-trendline-container {
+      display: flex;
+      background-color: var(--text-icons-color);
+      padding: 2rem;
+      width: 100%;
+    }
+
+    #project-list {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      overflow-y: scroll;
+    }
+
+    #project-list .pagination {
+      padding: 1rem 0;
+    }
+
+    .dashboard-project-list {
+      padding: 1rem;
+      border-right: 0.25rem solid var(--divider-color);
+      flex: 1;
+    }
+
+    .dashboard-project-list .list {
+      overflow-y: scroll;
+      max-height: 20rem;
+    }
+
+    .dashboard-graph {
+      flex: 2;
+      padding: 1rem;
+      min-height: 35rem;
+    }
+
+    .dashboard-graph-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .dashboard-timeline-container {
+      justify-content: flex-end;
+      align-items: center;
+      flex: 1;
+      background-color: var(--text-icons-color);
+      display: flex;
+      gap: 2rem;
+    }
+
+    .dashboard-timeline {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .dashboard-timeline-link {
+      color: var(--dark-primary-color);
+      background: transparent;
+      border: none;
+    }
+
+    .dashboard-timeline-link:hover,
+    .dashboard-timeline-link.active {
+      color: var(--light-primary-color);
+    }
+
+    .graph,
+    .pie-chart {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .graph {
+      height: 100%;
+    }
+
+    .pie-chart {
+      min-height: 25rem;
+    }
+
+    .dashboard-pie-chart-container {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      background-color: var(--text-icons-color);
+      padding: 2rem;
+      width: 100%;
+    }
+
+    .dashboard-pie-chart {
+      flex: 1;
+      text-align: center;
+    }
+
+    .dashboard-pie-chart-header {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .dashboard-risk-analysis-container {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      width: 100%;
+    }
+
+    .dashboard-risk-thermostat-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
+      background-color: var(--text-icons-color);
+    }
+
+    .dashboard-risk-thermostat-sticky {
+      position: sticky;
+      width: 100%;
+      top: 10vh;
+    }
+
+    .dashboard-risk-thermostat-header {
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .dashboard-risk-analysis {
+      background-color: var(--text-icons-color);
+      padding: 2rem;
+    }
+
+    .dashboard-risk-thermostat {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      width: 100%;
+      height: 10rem;
+      color: var(--text-icons-color);
+    }
+
+    .dashboard-risk-thermostat p {
+      font-weight: 700;
+    }
+
+    .dashboard-risk-thermostat-value {
+      font-size: 2.5rem;
+    }
+
+    .dashboard-risk-thermostat.green {
+      background-color: #0ada06;
+    }
+
+    .dashboard-risk-thermostat.yellow {
+      color: #2e2e2e;
+      background-color: #f1ee11;
+    }
+
+    .dashboard-risk-thermostat.red {
+      background-color: #f11111;
+    }
+
+    .dashboard-risk-thermostat.blue {
+      background-color: var(--dark-primary-color);
+    }
+
+    .dashboard-risk-info {
+      width: 100%;
+      padding: 2rem;
+    }
+
+    .dashboard-risk-info .list-item {
+      padding: 0.5rem;
+    }
+
+    .dashboard-associate-risk-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      background-color: var(--text-icons-color);
+      padding: 2rem;
+      width: 100%;
+    }
+
+    .dashboard-associate-risk {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      width: 100%;
+    }
+
+    .dashboard-associate-risk-list,
+    .dashboard-associate-risk-selected {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .dashboard-associate-risk-list {
+      max-height: 30rem;
+    }
+
+    .dashboard-associate-risk-list ul,
+    .dashboard-associate-risk-selected ul {
+      overflow-y: scroll;
+      max-height: 30rem;
+    }
+
+    .dashboard-associate-risk-selected input {
+      max-width: 5rem;
+    }
+
+    .dashboard-associate-risk-save-container {
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+    }
+
+    .dashboard-associate-risk-save {
+      color: var(--text-icons-color);
+      background-color: var(--dark-primary-color);
+      border: none;
+      cursor: pointer;
+      padding: 1rem;
+    }
+
+    .dashboard-associate-risk-save:hover {
+      background-color: var(--light-primary-color);
+    }
+
+    .project-risk-window {
+      display: flex;
+      font-weight: 700;
+      color: var(--text-icons-color);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      position: relative;
+      height: 10rem;
+      gap: 1rem;
+    }
+
+    .project-risk-window span {
+      position: absolute;
+      font-size: 2rem;
+      bottom: 1rem;
+      opacity: 0.4;
+    }
+
+    .project-risk-window .risk-value {
+      font-size: 2.5rem;
+    }
+
+    .project-risk-window.red {
+      background-color: var(--red-light);
+    }
+
+    .project-risk-window.yellow {
+      color: #2e2e2e;
+      background-color: var(--yellow-light);
+    }
+
+    .project-risk-window.green {
+      background-color: var(--green-light);
+    }
+
+    .project-risk-window.blue {
+      background-color: var(--dark-primary-color);
+    }
+    .list {
+      list-style: none;
+      width: 100%;
+    }
+
+    .list-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+    }
+
+    .list-item.border-bottom {
+      border-bottom: 0.25rem solid var(--divider-border-color);
+    }
+
+    .list-item-description {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      width: 100%;
+      gap: 1rem;
+    }
+
+    .list-item-counter {
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .list-item-actions {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      align-items: flex-end;
+      gap: 1rem;
+      flex: 1;
+      white-space: nowrap;
+    }
+
+    .list-item-actions a {
+      color: var(--dark-primary-color);
+      text-decoration: none;
+    }
+
+    .list-item-actions a:hover {
+      color: var(--light-primary-color);
+    }
+
+    .list-item-alert {
+      color: var(--red-light);
+    }
+
+    .list-item-link {
+      color: #000;
+      width: 100%;
+      gap: 1rem;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      flex: 2;
+    }
+
+    .list-item-link.button {
+      text-align: left;
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+    }
+
+    .list-item-link:hover {
+      color: var(--dark-primary-color);
+    }
+
+    .total-risk {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .total-risk p {
+      font-weight: 700;
+    }
+
+    .total-risk span {
+      color: var(--text-icons-color);
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      text-align: center;
+      min-width: 2rem;
+    }
+
+    .total-risk span.red {
+      background-color: var(--red-light);
+    }
+
+    .total-risk span.yellow {
+      color: #2e2e2e;
+      background-color: var(--yellow-light);
+    }
+
+    .total-risk span.green {
+      background-color: var(--green-light);
+    }
+
+    .total-risk span.blue {
+      background-color: var(--dark-primary-color);
+    }
+
+    .dropdown-container{
+      width: 50%;
+    }
+
+    .dropdown {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .dropdown p {
+      background-color: var(--text-icons-color);
+      padding: 1rem;
+    }
+
+    .dropdown-link {
+      display: block;
+      text-decoration: none;
+      color: var(--dark-primary-color);
+      padding: 0.5rem;
+      width: 100%;
+      transition: all 0.5s ease;
+    }
+
+    .dropdown-link:hover {
+      background-color: var(--dark-primary-color);
+      color: var(--text-icons-color);
+    }
+
+    .dropdown-button {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      border: none;
+      border-bottom: 0.25rem solid var(--divider-border-color);
+      background-color: transparent;
+      cursor: pointer;
+      gap: 2rem;
+    }
+
+    .dropdown-button.blue,
+    .dropdown-button.blue .dropdown-button-right {
+      color: var(--text-icons-color);
+      background-color: var(--dark-primary-color);
+    }
+
+    .dropdown-button-left {
+      font-weight: 700;
+      text-transform: capitalize;
+    }
+
+    .dropdown-button-right {
+      color: var(--dark-primary-color);
+    }
+
+    .dropdown-content-flex {
+      background-color: var(--divider-color);
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      padding: 1rem;
+    }
+
+    .dropdown-content-absolute {
+      position: absolute;
+      background-color: var(--text-icons-color);
+      border: var(--divider-border-color) solid 0.25rem;
+      padding: 0.25rem;
+      display: flex;
+      width: 100%;
+      top: 3rem;
+    }
+
+    .dropdown-content-flex.show {
+      display: flex;
+    }
+
+    .dropdown-content-absolute.show {
+      display: block;
+    }
+
+    .dropdown-content-row {
+      display: flex;
+      padding: 1rem;
+      gap: 1rem;
+      display: row;
+    }
+
+    .dropdown-content-row.show {
+      display: flex;
+    }
+
+    .dropdown-content-col {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .dropdown-content-col p {
+      padding: 0;
+    }
+
+    .circle {
+      width: 1rem;
+      height: 1rem;
+      min-width: 1rem;
+      min-height: 1rem;
+      border-radius: 100%;
+      flex-shrink: 0;
+    }
+
+    .circle.green {
+      background-color: var(--green-light);
+    }
+
+    .circle.yellow {
+      background-color: var(--yellow-light);
+    }
+
+    .circle.red {
+      background-color: var(--red-light);
+    }
+
+    .circle.blue {
+      background-color: var(--dark-primary-color);
+    }
+
+  </style>
+  <body>
+<main>
+  <div class="dashboard-header">
+    <h2><%- project.Nombre%></h2>
+  </div>
+  <div class="dashboard-container"> <%-
+    include("includes/risk-analysis-pdf.ejs"), {isAdmin: isAdmin,project: project,
+    risksOfProject: risksOfProject}%>
+  </div>
+</main>
+<script src="/javascript/pie.js"></script>
+<script src="/javascript/dashboard.js"></script>
+<script src="/javascript/constants.js"></script>
+<script src="/javascript/actions.js"></script>
+<script src="/javascript/navbar.js"></script>
+<script src="/javascript/risksList.js"></script>
+<script src="/javascript/dropdown.js"></script>
+<script src="/javascript/projects.js"></script>
+<script src="/javascript/modal.js"></script>
+<script src="/javascript/risks.js"></script>
+<script src="/javascript/script.js"></script>
+<script src="/javascript/users.js"></script>
+</body>
+</html>
